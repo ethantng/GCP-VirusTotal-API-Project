@@ -19,7 +19,8 @@ malware-pipeline/
 - **Trigger**: HTTP  
 - **Purpose**: Handles analysis requests (e.g., sending URLs/files to VirusTotal or another scanning service).  
 
-## Deployment:
+## Deployment
+
 ```bash
 gcloud functions deploy vt-analyze \
   --gen2 \
@@ -30,8 +31,7 @@ gcloud functions deploy vt-analyze \
   --service-account=functions-sa@<PROJECT_ID>.iam.gserviceaccount.com \
   --set-env-vars="GCP_PROJECT=<PROJECT_ID>,GCP_REGION=us-central1" \
   --source=functions/vt-analyze \
-  --no-allow-unauthenticated\
-exit
+  --no-allow-unauthenticated
 
 ## Testing:
 ```bash
@@ -44,4 +44,5 @@ curl -X POST "$(gcloud run services describe vt-analyze --region=us-central1 --f
   -H "Content-Type: application/json" \
 
   -d '{"type":"url","value":"https://httpbin.org/get"}'
-exit
+
+
