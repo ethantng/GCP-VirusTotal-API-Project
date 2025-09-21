@@ -31,8 +31,10 @@ gcloud functions deploy vt-analyze \
   --set-env-vars="GCP_PROJECT=<PROJECT_ID>,GCP_REGION=us-central1" \
   --source=functions/vt-analyze \
   --no-allow-unauthenticated\
+exit
 
 ## Testing:
+```bash
 TOKEN=$(gcloud auth print-identity-token \
   --impersonate-service-account=workflows-sa@<PROJECT_ID>.iam.gserviceaccount.com \
   --audiences="$(gcloud run services describe vt-analyze --region=us-central1 --format='value(status.url)')")
@@ -42,3 +44,4 @@ curl -X POST "$(gcloud run services describe vt-analyze --region=us-central1 --f
   -H "Content-Type: application/json" \
 
   -d '{"type":"url","value":"https://httpbin.org/get"}'
+exit
