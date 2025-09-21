@@ -2,7 +2,8 @@
 Purpose: 
 This project is a Google Cloud–based pipeline for analyzing suspicious files/URLs using Cloud Functions and Workflows.  
 
-##Architecture:
+## Architecture:
+
 malware-pipeline/
 ├─ functions/
 │ └─ vt-analyze/
@@ -12,13 +13,13 @@ malware-pipeline/
 └─ workflows/
 └─ vt-orchestrator.yaml # Workflow orchestrator definition
 
-##Cloud Function: `vt-analyze`
+## Cloud Function: `vt-analyze`
 - **Language**: Python 3.12  
 - **Entrypoint**: `entry` function in `main.py`  
 - **Trigger**: HTTP  
 - **Purpose**: Handles analysis requests (e.g., sending URLs/files to VirusTotal or another scanning service).  
 
-##Deployment:
+## Deployment:
 ```bash
 gcloud functions deploy vt-analyze \
   --gen2 \
@@ -31,7 +32,7 @@ gcloud functions deploy vt-analyze \
   --source=functions/vt-analyze \
   --no-allow-unauthenticated\
 
-##Testing:
+## Testing:
 TOKEN=$(gcloud auth print-identity-token \
   --impersonate-service-account=workflows-sa@<PROJECT_ID>.iam.gserviceaccount.com \
   --audiences="$(gcloud run services describe vt-analyze --region=us-central1 --format='value(status.url)')")
@@ -39,4 +40,5 @@ TOKEN=$(gcloud auth print-identity-token \
 curl -X POST "$(gcloud run services describe vt-analyze --region=us-central1 --format='value(status.url)')" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
+
   -d '{"type":"url","value":"https://httpbin.org/get"}'
