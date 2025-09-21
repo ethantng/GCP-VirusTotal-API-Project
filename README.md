@@ -2,16 +2,18 @@
 Purpose: 
 This project is a Google Cloud–based pipeline for analyzing suspicious files/URLs using Cloud Functions and Workflows.  
 
-## Architecture:
+## Architecture
 
+```text
 malware-pipeline/
 ├─ functions/
-│ └─ vt-analyze/
-│ ├─ main.py # Cloud Function entrypoint
-│ ├─ requirements.txt # Python dependencies
-│ └─ README.md # Function-specific notes
+│  └─ vt-analyze/
+│     ├─ main.py              # Cloud Function entrypoint
+│     ├─ requirements.txt     # Python dependencies
+│     └─ README.md            # Function-specific notes
 └─ workflows/
-└─ vt-orchestrator.yaml # Workflow orchestrator definition
+   └─ vt-orchestrator.yaml    # Workflow orchestrator definition
+```
 
 ## Cloud Function: `vt-analyze`
 - **Language**: Python 3.12  
@@ -46,5 +48,6 @@ curl -X POST "$(gcloud run services describe vt-analyze --region=us-central1 --f
 
   -d '{"type":"url","value":"https://httpbin.org/get"}'
 ```
+
 
 
